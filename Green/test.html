@@ -84,20 +84,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="brand" class="form-label">Brand:</label>
-                    <select class="form-select" id="brand" name="brand">
-                        <option value="all">All Brands</option>
-                        <option value="brand1">Apple</option>
-                        <option value="brand2">Samsung</option>
-                        <option value="brand3">Xiaomi</option>
-                        <option value="brand4">Nokia</option>
-                        <option value="brand5">Huawei</option>
-                        <option value="brand6">Asus</option>
-                        <option value="brand7">Motorola</option>
-                        <option value="brand8">Nothing</option>
-                        <option value="brand9">Oppo</option>
-                        <option value="brand10">Vivo</option>
-                        <option value="brand11">Realme</option>
-                    </select>
+                    <select class="form-select" id="brand" name="brand"></select>
                 </div>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#advancedFilterModal">
                     Advanced Filters
@@ -280,4 +267,33 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Fetch API -->
+  <script>
+    var myHeaders = new Headers();
+    myHeaders.append("x-rapidapi-key", "9a4c841eacmshbdd9227ec234eabp14b075jsn0ea8a09cf4c3");
+    myHeaders.append("x-rapidapi-host", "mobile-phone-specs-database.p.rapidapi.com");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://mobile-phone-specs-database.p.rapidapi.com/gsm/all-brands", requestOptions)
+      .then(response => response.json())
+      // .then(result => console.log(result))
+      .then(result => {
+        // Assuming the API response has an array of objects with 'brandName' property
+        const brandDropdown = document.getElementById('brand');
+
+        // Loop through the result and add options to the dropdown
+        result.forEach(phone => {
+            const option = document.createElement('option');
+            option.text = phone.brandValue;
+            brandDropdown.appendChild(option);
+        });
+      })
+      .catch(error => console.log('error', error));
+  </script>
 </body>
