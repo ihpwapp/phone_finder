@@ -76,93 +76,173 @@
       
 
 
-      <!-- list of manufacturers-->
+      <!-- list of questions-->
       <section>
         <style>
-          /* Set a fixed height for images within the table */
-          .table td img {
-            max-width: 100%; /* Ensure images don't exceed the width of their container */
-            height: auto; /* Maintain the aspect ratio */
-            max-height: 250px;
-            object-fit: contain;
+          body {
+              font-family: 'Arial', sans-serif;
+              text-align: center;
           }
-        </style>
-
-      <body>
-
-        <div class="container">
-
-          <div class="section-title">
-            <h2>Sapa tanya</h2>
-            <p>Afiffuddin Muhammad</p>
-            <p>Hariz the goat Afiffuddin (pic)</p>
-          </div>
-      
-    
-          
-          <head>
-            <title>Stackened cards hover effect</title>
-            <style>
-          
-              .card-container {
-                display: flex;
-                justify-content: center; /* Center the content horizontally */
-                align-items: center; /* Center the content vertically */
-                height: 100vh; /* Set height to full viewport height */
+  
+          .quiz-container {
+              max-width: 600px;
+              margin: auto;
+          }
+  
+          .question {
+              font-size: 1.2em;
+              margin-bottom: 10px;
+          }
+  
+          .options {
+              display: flex;
+              justify-content: center;
+          }
+  
+          .option {
+              margin: 0 10px;
+              padding: 10px;
+              cursor: pointer;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              transition: background-color 0.3s;
+          }
+  
+          .option:hover {
+              background-color: #f0f0f0;
+          }
+  
+          #result {
+              margin-top: 20px;
+              font-weight: bold;
+          }
+  
+          #resetBtn {
+              display: none;
+          }
+  
+          #resultImage {
+              max-width: 100%;
+              margin-top: 20px;
+              display: none; /* Initially hide the image */
+          }
+      </style>
+  </head>
+  <body>
+      <div class="quiz-container">
+          <div id="question" class="question"></div>
+          <div id="options" class="options"></div>
+          <div id="result"></div>
+          <img id="resultImage" alt="Result Image">
+          <button id="actionBtn" onclick="nextQuestion()">Next</button>
+          <button id="resetBtn" onclick="resetQuiz()">Reset</button>
+      </div>
+  
+      <script>
+          const quizData = [
+              {
+                  question: 'What do you use your phone for the most?',
+                  options: ['Gaming', 'Social Media', 'Outdoor Activities', 'Photography']
+              },
+              {
+                  question: 'How would you describe your lifestyle?',
+                  options: ['Gamer/Entertainment Enthusiast', 'Social Butterfly', 'Outdoor Adventurer', 'Photography Enthusiast']
+              },
+              {
+                  question: 'In which environment do you use your phone the most?',
+                  options: ['Indoors', 'City Life', 'Outdoor Adventures', 'Everywhere, I love taking photos']
               }
-          
-              .card {
-                position: relative;
-                width: 400px;
-                margin: 0 20px; /* Adjust spacing between cards */
+          ];
+  
+          const resultCategories = ['Gaming Phone', 'Lifestyle Phone', 'Rugged Phone', 'Camera Phone'];
+          const resultImages = {
+              'Gaming Phone': 'assets/img/afif.jpeg',
+              'Lifestyle Phone': 'assets/img/afif.jpeg',
+              'Rugged Phone': 'assets/img/afif.jpeg',
+              'Camera Phone': 'assets/img/afif.jpeg'
+          };
+  
+          let currentQuestion = 0;
+          let userAnswers = [];
+  
+          function loadQuestion() {
+              const questionElement = document.getElementById('question');
+              const optionsElement = document.getElementById('options');
+  
+              questionElement.textContent = quizData[currentQuestion].question;
+  
+              optionsElement.innerHTML = '';
+              quizData[currentQuestion].options.forEach((option, index) => {
+                  const optionElement = document.createElement('div');
+                  optionElement.className = 'option';
+                  optionElement.textContent = option;
+                  optionElement.addEventListener('click', () => selectOption(index));
+                  optionsElement.appendChild(optionElement);
+              });
+          }
+  
+          function selectOption(index) {
+              userAnswers[currentQuestion] = index;
+              const options = document.querySelectorAll('.option');
+              options.forEach(option => option.style.backgroundColor = ''); // Reset background color
+              options[index].style.backgroundColor = '#b3e0ff'; // Highlight selected option
+          }
+  
+          function nextQuestion() {
+              if (userAnswers[currentQuestion] === undefined) {
+                  alert('Please select an option before moving to the next question.');
+                  return;
               }
-          
-              .card::before,
-              .card::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+  
+              currentQuestion++;
+  
+              if (currentQuestion < quizData.length) {
+                  loadQuestion();
+              } else {
+                  showResult();
               }
-          
-              .card::before,
-              .card::after,
-              .card .card-inner {
-                background-color: #423F3E;
-                border: 1px solid #01937C;
-                transition: transform 0.5s;
+          }
+  
+          function showResult() {
+              const resultElement = document.getElementById('result');
+              const resultImageElement = document.getElementById('resultImage');
+              const totalQuestions = quizData.length;
+              let score = [0, 0, 0, 0];
+  
+              for (let i = 0; i < totalQuestions; i++) {
+                  score[userAnswers[i]]++;
               }
-          
-              .card::before,
-              .card-inner {
-                z-index: 1;
-              }
-          
-              .card-inner {
-                position: relative;
-                padding: 4rem;
-              }
-          
-              /* Position the stacked cards in different position */
-              .cards:hover {
-                transform: translate(5px, 5px);
-              }
-          
-              .cards:hover::before {
-                transform: translate(-5px, -5px);
-              }
-          
-              .cards:hover::after {
-                transform: translate(-10px, -10px);
-              }
-            </style>
-          </head>
-          
-          <body>
-
-          </body>
+  
+              const maxIndex = score.indexOf(Math.max(...score));
+              const resultCategory = resultCategories[maxIndex];
+  
+              resultElement.textContent = `You got: ${resultCategory}!`;
+              resultImageElement.src = resultImages[resultCategory];
+              resultImageElement.alt = `${resultCategory} Image`;
+              resultImageElement.style.display = 'block'; // Show the image
+              showResetButton(); // Call function to show the reset button
+          }
+  
+          function showResetButton() {
+              document.getElementById('actionBtn').style.display = 'none';
+              document.getElementById('resetBtn').style.display = 'inline-block';
+          }
+  
+          function resetQuiz() {
+              currentQuestion = 0;
+              userAnswers = [];
+              loadQuestion();
+              document.getElementById('result').textContent = '';
+              document.getElementById('actionBtn').style.display = 'inline-block';
+              document.getElementById('resetBtn').style.display = 'none';
+              document.getElementById('resultImage').src = '';
+              document.getElementById('resultImage').alt = 'Result Image';
+              document.getElementById('resultImage').style.display = 'none'; // Hide the image again
+          }
+  
+          // Initial load
+          loadQuestion();
+      </script>
           
           
         </section>
