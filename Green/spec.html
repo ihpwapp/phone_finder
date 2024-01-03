@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>Phone Finder </title>
   <meta content="phone picker" name="description">
   <meta content="" name="keywords">
@@ -91,27 +90,44 @@
       <div class="container">
 
        <div class="section-title">
-         <h2>Spec Comparison</h2>
-         <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+         <tr class="bg-light" rowspan="2"><section id="filtrationFormSection">
+          <div class="container">
+              <h2 class="text-center mb-4">Spec Comparison</h2>
+              <form class="brandComparison">
+                  <div class="mb-3">
+                      <label for="productType" class="form-label fw-bold">Phone Type1:</label>
+                      <select class="form-select text-center" id="brand1" name="brand1">
+                      </select>
+                  </div>
+                  
+                  <div class="mb-3">
+                      <label for="productType" class="form-label fw-bold">Phone Type2:</label>
+                      <select class="form-select text-center" id="brand2" name="brand2">
+                      </select>
+                  </div>
+              </form>
+          </div>
+      </section></tr>
        </div>
 
 
   
   <body>
   
-      <div class="container">
+      <div class="container d-none" id="c1">
           <div class="col-md-9 mx-auto">
               <table class="table">
+                
                   <tr class="bg-light">
                       <th>Select Product</th>
                       <th width="300px">
-                        <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-                          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                        <form class="col-12 col-lg-auto mb-3 mb-lg-0" id="form1" role="search" target="_blank">
+                          <input type="text" id="phone1" class="form-control" placeholder="Search..." aria-label="Search">
                         </form>
                       </th>
                       <th width="300px">
-                        <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-                          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                        <form class="col-12 col-lg-auto mb-3 mb-lg-0" id="form2" target="_blank">
+                          <input type="search"  id="phone2" class="form-control" placeholder="Search..." aria-label="Search">
                         </form>
                       </th>
                   </tr>
@@ -126,18 +142,18 @@
                               id="img2" alt=" ">
                       </td>
                   </tr>
-                  <tr>
+                  <tr id="productPrice">
                       <th>Product Price</th>
                       <td id="price1">N/A</td>
                       <td id="price2">N/A</td>
                   </tr>
-                  <tr>
+                  <tr id="desc">
                       <th>Product Description</th>
                       <td id="desc1">N/A</td>
                       <td id="desc2">N/A</td>
                   </tr>
-                  <tr>
-                      <th>Product Brand</th>
+                  <tr id="weight">
+                      <th>Product Weight</th>
                       <td id="brand1">N/A</td>
                       <td id="brand2">N/A</td>
                   </tr>
@@ -205,7 +221,126 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+        const brands = [
+        "Samsung", "Apple", "Huawei", "Asus", "Oppo",
+        "HTC", "Xiaomi", "OnePlus", "Vivo", "Honor",
+        "Lenovo", "Realme", "Nokia", "Nothing", "Google",
+        "Redmi", "Poco", "Honor", "Infinix"
+    ];
 
+    // Function to populate the brand select options
+    function populateBrandOptions() {
+        const brandSelect1 = document.getElementById('brand1');
+        const brandSelect2 = document.getElementById('brand2');
+
+        brands.forEach(brand => {
+            const option = document.createElement('option');
+            option.value = brand;
+            option.text = brand;
+            brandSelect1.appendChild(option);
+        });
+        brands.forEach(brand => {
+            const option = document.createElement('option');
+            option.value = brand;
+            option.text = brand;
+            brandSelect2.appendChild(option);
+        });
+    }
+    window.onload = populateBrandOptions;
+  </script>
+  <script>
+    let phone1Value=""
+    let phone2Value=""
+ document.getElementById('form1').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        // Your code to handle the search can go here
+        let phone1 = document.getElementById('phone1');
+        phone1Value = phone1.value;
+        console.log(phone1Value);
+        getPhone()
+    });
+
+ document.getElementById('form2').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        // Your code to handle the search can go here
+        let phone2 = document.getElementById('phone2');
+        phone2Value = phone2.value;
+        console.log(phone2Value);
+    });
+
+    console.log(phone1Value)
+  
+  function getPhone(){
+    let found = false
+    let result1 = []
+    fetch("../phoneSpec.json")
+  .then(response => response.json())
+  .then(result => {
+    console.log(result.Samsung.length)
+    result.Apple.forEach(item=> {
+      //console.log(item.model)
+      //console.log(item) // dapatkan semua jenis model yang ad
+      if(item.model == phone1Value){ //kalau nk check terus sbijik
+        console.log(item)
+      }
+      if (item.model.includes(phone1Value)) { // kalau nk cari yg ad perkataan sama
+        result1.push(item)
+      }
+    })
+    console.log(result1)
+  })
+  .catch(error => console.log('error', error));
+  }
+
+  function getPhoneByBrand(brand){
+    console.log(brand)
+    let found = false
+    let result1 = []
+    fetch("../phoneSpec.json")
+  .then(response => response.json())
+  .then(result => {
+    let phoneBrand = result[`${brand}`]
+    console.log(result[`${brand}`].length)
+    phoneBrand.forEach((items)=>{
+      console.log(items)
+    })
+  })
+  .catch(error => console.log('error', error));
+  }
+  let brand1value
+  let brand2value
+
+  function pickBrand() {
+    return new Promise((resolve) => {
+        document.querySelector('#brand2').addEventListener('change', function (event) {
+            event.preventDefault();
+            let brand1 = document.getElementById('brand1');
+            let brand2 = document.getElementById('brand2');
+
+            let brand1value = brand1.value;
+            let brand2value = brand2.value;
+
+            console.log(brand1value, brand2value);
+
+            if (brand1value == brand1.value && brand2value == brand2.value) {
+                var myContainer = document.querySelector('#c1');
+                myContainer.classList.remove('d-none');
+            }
+
+            // Resolve the promise with an object containing the values
+            resolve({ brand1value, brand2value });
+        });
+    });
+}
+
+// Using the promise
+pickBrand().then((values) => {
+  getPhoneByBrand(values.brand1value)
+});
+  </script>
 </body>
 
 </html>
