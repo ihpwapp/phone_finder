@@ -269,7 +269,8 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <div class="col">
             <div class="card shadow-sm">
-              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+              <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
               <div class="card-body">
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 <div class="d-flex justify-content-between align-items-center">
@@ -443,7 +444,7 @@
 </script>
 
   <!-- Fetch mobile phone API -->
-  <script>
+  <!-- <script>
     var myHeaders = new Headers();
     myHeaders.append("x-rapidapi-key", "9a4c841eacmshbdd9227ec234eabp14b075jsn0ea8a09cf4c3");
     myHeaders.append("x-rapidapi-host", "mobile-phone-specs-database.p.rapidapi.com");
@@ -469,5 +470,34 @@
         });
       })
       .catch(error => console.log('error', error));
+  </script> -->
+
+  <!-- Web scrap -->
+  <script>
+    const query = 'iphone 12'; // Example Search Query
+
+    // Yahoo Image Search URL
+    const searchUrl = `https://images.search.yahoo.com/search/images?p=${query}`;
+
+    // Fetching HTML from Yahoo Image Searchs
+    fetch(searchUrl)
+        .then(response => response.text())
+        .then(html => {
+            // Parse the HTML to extract image URLs (this part depends on the structure of Yahoo's search results page)
+            // Example: Assuming image URLs are within <img> tags with class "process"
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const imageElements = doc.querySelectorAll('img.process');
+
+            // Extract and log the first image URL
+            if (imageElements.length > 0) {
+                console.log(imageElements[0]) //html
+                const firstImageUrl = imageElements[0].getAttribute('data-src'); // get image link
+                console.log('First image URL:', firstImageUrl);
+            } else {
+                console.error('No images found on the search page.');
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
   </script>
 </body>
