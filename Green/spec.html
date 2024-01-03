@@ -26,7 +26,13 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-
+  <style>
+    .product-image {
+      height: 100%;
+      width: 100%;
+      object-fit: cover; /* or "contain" depending on your preference */
+    }
+  </style>
 </head>
 
 <body>
@@ -95,14 +101,16 @@
               <h2 class="text-center mb-4">Spec Comparison</h2>
               <form class="brandComparison">
                   <div class="mb-3">
-                      <label for="productType" class="form-label fw-bold">Phone Type1:</label>
+                      <label for="productType" class="form-label fw-bold">Phone 1:</label>
                       <select class="form-select text-center" id="brand1" name="brand1">
+                        <option selected>Select a Brand</option>
                       </select>
                   </div>
                   
                   <div class="mb-3">
-                      <label for="productType" class="form-label fw-bold">Phone Type2:</label>
+                      <label for="productType" class="form-label fw-bold">Phone 2:</label>
                       <select class="form-select text-center" id="brand2" name="brand2">
+                        <option selected>Select a Brand</option>
                       </select>
                   </div>
               </form>
@@ -122,12 +130,14 @@
                       <th>Select Product</th>
                       <th width="300px">
                         <form class="col-12 col-lg-auto mb-3 mb-lg-0" id="form1" role="search" target="_blank">
-                          <input type="text" id="phone1" class="form-control" placeholder="Search..." aria-label="Search">
-                        </form>
+                          <input list="datalist1" id="phone1" class="form-control" placeholder="Search..." aria-label="Search">
+                          <datalist id ="datalist1"></datalist>
+                          </form>
                       </th>
                       <th width="300px">
                         <form class="col-12 col-lg-auto mb-3 mb-lg-0" id="form2" target="_blank">
-                          <input type="search"  id="phone2" class="form-control" placeholder="Search..." aria-label="Search">
+                          <input  list="datalist2" id="phone2" class="form-control" placeholder="Search..." aria-label="Search">
+                          <datalist id ="datalist2"></datalist>
                         </form>
                       </th>
                   </tr>
@@ -135,11 +145,11 @@
                       <th>Product Image</th>
                       <td>
                           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-                              id="img1" alt=" ">
+                              id="img1" alt=" " height="100%" width="100%">
                       </td>
                       <td>
                           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-                              id="img2" alt=" ">
+                              id="img2" alt=" " height="100%" width="100%">
                       </td>
                   </tr>
                   <tr id="productPrice">
@@ -148,14 +158,14 @@
                       <td id="price2">N/A</td>
                   </tr>
                   <tr id="desc">
-                      <th>Product Description</th>
-                      <td id="desc1">N/A</td>
-                      <td id="desc2">N/A</td>
+                      <th>Product Features</th>
+                      <td id="feat1">N/A</td>
+                      <td id="feat2">N/A</td>
                   </tr>
                   <tr id="weight">
                       <th>Product Weight</th>
-                      <td id="brand1">N/A</td>
-                      <td id="brand2">N/A</td>
+                      <td id="dim1">N/A</td>
+                      <td id="dim2">N/A</td>
                   </tr>
               </table>
   
@@ -228,7 +238,34 @@
         "Lenovo", "Realme", "Nokia", "Nothing", "Google",
         "Redmi", "Poco", "Honor", "Infinix"
     ];
+    function getImg(phoneName) {
+    return (async () => {
+        const searchUrl = `https://images.search.yahoo.com/search/images?p=${phoneName};`
 
+        try {
+            // Fetching HTML from Yahoo Image Search
+            const response = await fetch(searchUrl);
+            const html = await response.text();
+
+            // Parse the HTML to extract image URLs
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const imageElements = doc.querySelectorAll('img.process');
+
+            // Extract and log the first image URL
+            if (imageElements.length > 0) {
+                console.log(imageElements[0]);
+                const firstImageUrl = imageElements[2].getAttribute('data-src');
+                console.log(firstImageUrl);
+                return firstImageUrl;
+            } else {
+                console.error('No images found on the search page.');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    })();
+}
     // Function to populate the brand select options
     function populateBrandOptions() {
         const brandSelect1 = document.getElementById('brand1');
@@ -252,61 +289,119 @@
   <script>
     let phone1Value=""
     let phone2Value=""
- document.getElementById('form1').addEventListener('submit', function (event) {
+    function phoneValue1(brand){
+      document.getElementById('form1').addEventListener('change', function (event) {
         event.preventDefault(); // Prevent the default form submission behavior
-
         // Your code to handle the search can go here
         let phone1 = document.getElementById('phone1');
         phone1Value = phone1.value;
-        console.log(phone1Value);
-        getPhone()
+        getPhone(brand)
+        
     });
-
- document.getElementById('form2').addEventListener('submit', function (event) {
+    }
+ 
+  function phoneValue2(brand){
+ document.getElementById('form2').addEventListener('change', function (event) {
         event.preventDefault(); // Prevent the default form submission behavior
 
         // Your code to handle the search can go here
         let phone2 = document.getElementById('phone2');
         phone2Value = phone2.value;
         console.log(phone2Value);
+        getPhone2(brand)
     });
-
+  }
     console.log(phone1Value)
   
-  function getPhone(){
+  function getPhone(brand){
     let found = false
-    let result1 = []
+    let result = []
     fetch("../phoneSpec.json")
   .then(response => response.json())
   .then(result => {
-    console.log(result.Samsung.length)
-    result.Apple.forEach(item=> {
-      //console.log(item.model)
-      //console.log(item) // dapatkan semua jenis model yang ad
+    result[`${brand}`].forEach(item=> {
       if(item.model == phone1Value){ //kalau nk check terus sbijik
-        console.log(item)
-      }
-      if (item.model.includes(phone1Value)) { // kalau nk cari yg ad perkataan sama
-        result1.push(item)
+        result = item
       }
     })
-    console.log(result1)
+    console.log(result)
+    let productPrice = document.querySelector("#price1")
+    productPrice.innerHTML = `RM ${(result.price_usd * 4.60).toFixed(2)}`
+    let feature = document.querySelector("#feat1")
+    feature.innerHTML = `${result.Features}`
+    let dim = document.querySelector("#dim1")
+    dim.innerHTML = `${result.Dimensions}`
+    let img = document.querySelector("#img1")
+    getImg(result.model).then(result => {
+    img.src = result
+});
+    
+  })
+  .catch(error => console.log('error', error));
+  }
+
+  function getPhone2(brand){
+    let found = false
+    let result = []
+    fetch("../phoneSpec.json")
+  .then(response => response.json())
+  .then(result => {
+    result[`${brand}`].forEach(item=> {
+      if(item.model == phone2Value){ //kalau nk check terus sbijik
+        result = item
+      }
+    })
+    console.log(result)
+    let productPrice = document.querySelector("#price2")
+    productPrice.innerHTML = `RM ${(result.price_usd * 4.60).toFixed(2)}`
+    let feature = document.querySelector("#feat2")
+    feature.innerHTML = `${result.Features}`
+    let dim = document.querySelector("#dim2")
+    dim.innerHTML = `${result.Dimensions}`
+    let img = document.querySelector("#img2")
+    getImg(result.model).then(result => {
+    img.src = result
+});
+  
   })
   .catch(error => console.log('error', error));
   }
 
   function getPhoneByBrand(brand){
+    let datalist = document.querySelector("#datalist1")
     console.log(brand)
     let found = false
     let result1 = []
+    let text =``
+    
+    fetch("../phoneSpec.json")
+  .then(response => response.json())
+  .then(result => {
+    let phoneBrand = result[`${brand}`]
+    phoneBrand.forEach((items)=>{
+      text += `<option value = "${items.model}"">`
+    })
+    datalist.innerHTML=text
+  })
+  .catch(error => console.log('error', error));
+  }
+
+  function getPhoneByBrand2(brand){
+    let datalist = document.querySelector("#datalist2")
+    console.log(brand)
+    let found = false
+    let result1 = []
+    let text =``
+    
     fetch("../phoneSpec.json")
   .then(response => response.json())
   .then(result => {
     let phoneBrand = result[`${brand}`]
     console.log(result[`${brand}`].length)
     phoneBrand.forEach((items)=>{
-      console.log(items)
+      text += `<option value = "${items.model}"">`
     })
+    datalist.innerHTML=text
   })
   .catch(error => console.log('error', error));
   }
@@ -337,8 +432,13 @@
 }
 
 // Using the promise
+
 pickBrand().then((values) => {
   getPhoneByBrand(values.brand1value)
+  getPhoneByBrand2(values.brand2value)
+  phoneValue1(values.brand1value)
+  phoneValue2(values.brand2value)
+
 });
   </script>
 </body>
