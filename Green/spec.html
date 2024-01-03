@@ -95,41 +95,47 @@
           }
       </style>
       
-    <section id="portfolio" class="portfolio">
-      <div class="container">
 
-       <div class="section-title">
-         <tr class="bg-light" rowspan="2"><section id="filtrationFormSection">
-           <h2 class="text-center mb-4">Spec Comparison</h2>
-          <div class="container" id="headDiv">
-              <form class="brandComparison">
-                  <div class="mb-3">
-                      <label for="productType" class="form-label fw-bold">Phone 1:</label>
-                      <select class="form-select text-center" id="brand1" name="brand1">
-                        <option selected>Select a Brand</option>
-                      </select>
-                  </div>
-                  
-                  <div class="mb-3">
-                      <label for="productType" class="form-label fw-bold">Phone 2:</label>
-                      <select class="form-select text-center" id="brand2" name="brand2">
-                        <option selected>Select a Brand</option>
-                      </select>
-                  </div>
-              </form>
-          </div>
-      </section></tr>
-       </div>
-
-
-  
   <body>
+    <div class="container">
+      <section id="portfolio" class="portfolio">
+        <div class="container">
   
+         <div class="section-title">
+           <tr class="bg-light" rowspan="2"><section id="filtrationFormSection">
+             <h2 class="text-center mb-4">Spec Comparison</h2>
+            <div class="container" id="headDiv">
+            </div>
+        </section></tr>
+         </div>
+      <div class="col-md-9 mx-auto">
+        <form class="brandComparison">
+          <div class="mb-3">
+              
+          </div>
+          <table class="table">
+              <tr class="bg-light">
+                <th>Select Brand</th>
+                <th>
+
+                  <select class="form-select text-center" id="brand1" name="brand2">
+                    <option selected>Select a Brand</option>
+                  </select>
+                </th>
+                <th>
+                  <select class="form-select text-center" id="brand2" name="brand1">
+                    <option selected>Select a Brand</option>
+                  </select></th>
+                </tr>
+                </table>
+                </div>
+                </div>
+        </form>
       <div class="container d-none" id="c1">
           <div class="col-md-9 mx-auto">
               <table class="table">
-                
                   <tr class="bg-light">
+                       <tr class="bg-light">
                       <th>Select Product</th>
                       <th width="300px">
                         <form class="col-12 col-lg-auto mb-3 mb-lg-0" id="form1" role="search" target="_blank">
@@ -143,6 +149,7 @@
                           <datalist id ="datalist2"></datalist>
                         </form>
                       </th>
+                  </tr>
                   </tr>
                   <tr>
                       <th>Product Image</th>
@@ -252,8 +259,7 @@
         const brands = [
         "Samsung", "Apple", "Huawei", "Oppo",
         "Sony", "Xiaomi", "OnePlus", "Vivo", "Honor",
-        "Realme", "Nokia",
-        "Redmi","Infinix"
+        "Realme", "Nokia","Infinix"
     ];
     function getImg(phoneName) {
     return (async () => {
