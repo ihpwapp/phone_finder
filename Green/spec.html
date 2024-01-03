@@ -32,6 +32,9 @@
       width: 100%;
       object-fit: cover; /* or "contain" depending on your preference */
     }
+    #headDiv{
+      width: 25% !important;
+    }
   </style>
 </head>
 
@@ -97,8 +100,8 @@
 
        <div class="section-title">
          <tr class="bg-light" rowspan="2"><section id="filtrationFormSection">
-          <div class="container">
-              <h2 class="text-center mb-4">Spec Comparison</h2>
+           <h2 class="text-center mb-4">Spec Comparison</h2>
+          <div class="container" id="headDiv">
               <form class="brandComparison">
                   <div class="mb-3">
                       <label for="productType" class="form-label fw-bold">Phone 1:</label>
@@ -157,13 +160,23 @@
                       <td id="price1">N/A</td>
                       <td id="price2">N/A</td>
                   </tr>
+                  <tr>
+                      <th>Front Camera</th>
+                      <td id="fc1">N/A</td>
+                      <td id="fc2">N/A</td>
+                  </tr>
+                  <tr>
+                      <th>Back Camera</th>
+                      <td id="bc1">N/A</td>
+                      <td id="bc2">N/A</td>
+                  </tr>
                   <tr id="desc">
                       <th>Product Features</th>
                       <td id="feat1">N/A</td>
                       <td id="feat2">N/A</td>
                   </tr>
                   <tr id="weight">
-                      <th>Product Weight</th>
+                      <th>Product Dimensions</th>
                       <td id="dim1">N/A</td>
                       <td id="dim2">N/A</td>
                   </tr>
@@ -196,7 +209,7 @@
       </div>
       </section> -->
     <!-- Comparison Details Section -->
-
+      <div class="container d-flex justify-content-center"> <button onclick="refreshPage()" class="btn btn-success"> Reset</button></div>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -232,15 +245,19 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
+     function refreshPage() {
+      // Reload the current page
+      location.reload();
+    }
         const brands = [
-        "Samsung", "Apple", "Huawei", "Asus", "Oppo",
-        "HTC", "Xiaomi", "OnePlus", "Vivo", "Honor",
-        "Lenovo", "Realme", "Nokia", "Nothing", "Google",
-        "Redmi", "Poco", "Honor", "Infinix"
+        "Samsung", "Apple", "Huawei", "Oppo",
+        "Sony", "Xiaomi", "OnePlus", "Vivo", "Honor",
+        "Realme", "Nokia",
+        "Redmi","Infinix"
     ];
     function getImg(phoneName) {
     return (async () => {
-        const searchUrl = `https://images.search.yahoo.com/search/images?p=${phoneName};`
+        const searchUrl = `https://images.search.yahoo.com/search/images?p=${phoneName}+phone;`
 
         try {
             // Fetching HTML from Yahoo Image Search
@@ -331,6 +348,10 @@
     feature.innerHTML = `${result.Features}`
     let dim = document.querySelector("#dim1")
     dim.innerHTML = `${result.Dimensions}`
+    let fc1 = document.querySelector("#fc1")
+    fc1.innerHTML = `${result.Front}`
+    let bc1 = document.querySelector("#bc1")
+    bc1.innerHTML = `${result.Main}`
     let img = document.querySelector("#img1")
     getImg(result.model).then(result => {
     img.src = result
@@ -358,6 +379,10 @@
     feature.innerHTML = `${result.Features}`
     let dim = document.querySelector("#dim2")
     dim.innerHTML = `${result.Dimensions}`
+    let fc2 = document.querySelector("#fc2")
+    fc2.innerHTML = `${result.Front}`
+    let bc2 = document.querySelector("#bc2")
+    bc2.innerHTML = `${result.Main}`
     let img = document.querySelector("#img2")
     getImg(result.model).then(result => {
     img.src = result
