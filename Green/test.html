@@ -289,7 +289,7 @@
           </div>
           <div class="col">
             <div class="card shadow-sm">
-              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
               <div class="card-body">
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 <div class="d-flex justify-content-between align-items-center">
@@ -444,30 +444,31 @@
 
   <!-- Fetch mobile phone API -->
   <script>
-    var myHeaders = new Headers();
-    myHeaders.append("x-rapidapi-key", "9a4c841eacmshbdd9227ec234eabp14b075jsn0ea8a09cf4c3");
-    myHeaders.append("x-rapidapi-host", "mobile-phone-specs-database.p.rapidapi.com");
+    const query = 'iphone 12'; // Example Search Query
 
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
+// Yahoo Image Search URL
+const searchUrl = `https://images.search.yahoo.com/search/images?p=${query};`
+var cards = document.querySelector("img")
+// Fetching HTML from Yahoo Image Searchs
+fetch(searchUrl)
+    .then(response => response.text())
+    .then(html => {
+        // Parse the HTML to extract image URLs (this part depends on the structure of Yahoo's search results page)
+        // Example: Assuming image URLs are within <img> tags with class "process"
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const imageElements = doc.querySelectorAll('img.process');
 
-    fetch("https://mobile-phone-specs-database.p.rapidapi.com/gsm/all-brands", requestOptions)
-      .then(response => response.json())
-      // .then(result => console.log(result))
-      .then(result => {
-        // Assuming the API response has an array of objects with 'brandName' property
-        const brandDropdown = document.getElementById('brand');
-
-        // Loop through the result and add options to the dropdown
-        result.forEach(phone => {
-            const option = document.createElement('option');
-            option.text = phone.brandValue;
-            brandDropdown.appendChild(option);
-        });
-      })
-      .catch(error => console.log('error', error));
+        // Extract and log the first image URL
+        if (imageElements.length > 0) {
+            console.log(imageElements[0]) //html
+            const firstImageUrl = imageElements[2].getAttribute('data-src'); // get image link
+            cards.src=firstImageUrl
+            console.log('First image URL:', firstImageUrl);
+        } else {
+            console.error('No images found on the search page.');
+        }
+    })
+    .catch(error => console.error('Error fetching data:', error));
   </script>
 </body>
