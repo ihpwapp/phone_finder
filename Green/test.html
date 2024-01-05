@@ -33,7 +33,6 @@
 <style>
     /* Styling for the filtration form section */
     #filtrationFormSection {
-        background-color: #f8f9fa; /* Set background color for the filtration form section */
         padding: 50px 0; /* Add padding for better spacing */
     }
 
@@ -91,33 +90,34 @@
     
     <!-- Filtration Form Section -->
     <section id="filtrationFormSection">
-        <div class="container">
-            <h2 class="text-center mb-4">Filter Products</h2>
-            <form>
-                <div class="mb-3">
-                    <label for="productType" class="form-label">Phone Type:</label>
-                    <select class="form-select" id="productType" name="productType">
-                        <option value="all">All Products</option>
-                        <option value="Gaming">Gaming Phone</option>
-                        <option value="Flagship">Flagship Phone</option>
-                        <option value="Camera">Camera Phone</option>
-                        <option value="Battery Centric">Battery Centric Phone</option>
-                        <option value="Rugged">Rugged Phone</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                  <label for="brand" class="form-label">Brand:</label>
-                  <select class="form-select " id="brand" name="brand">
-                      <!-- JavaScript will populate the options here -->
-                  </select>
-              </div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#advancedFilterModal">
-                    Advanced Filters
-                </button>
-                <button type="submit" class="btn btn-primary ml-2">Apply Filters</button>
-            </form>
-        </div>
-    </section>
+      <div class="container">
+        <div class="section-title">
+          <h2 class="text-center mb-4">Filter Products</h2>
+          <form>
+            <div class="mb-3">
+              <label for="brand" class="form-label">Brand:</label>
+              <select class="form-select " id="brand" name="brand">
+                  <!-- JavaScript will populate the options here -->
+              </select>
+            </div>
+            <div class="mb-3">
+                <label for="productType" class="form-label">Phone Type:</label>
+                <select class="form-select" id="productType" name="productType">
+                    <option value="all">All Products</option>
+                    <option value="Gaming">Gaming Phone</option>
+                    <option value="Flagship">Flagship Phone</option>
+                    <option value="Camera">Camera Phone</option>
+                    <option value="Battery Centric">Battery Centric Phone</option>
+                    <option value="Rugged">Rugged Phone</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#advancedFilterModal">
+                Advanced Filters
+            </button>
+            <button type="button" class="btn btn-primary ml-2" onclick="applyFilter('brand')">Apply Filters</button>
+          </form>
+      </div>
+  </section>
 
     <!-- Advanced Filter Modal -->
     <div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="advancedFilterModalLabel" aria-hidden="true">
@@ -261,109 +261,21 @@
       </div>
   </div>
 
-    
-  
-    <div class="album py-5 bg-body-tertiary">
-      <div class="container">
-  
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <div class="col">
-            <div class="card shadow-sm">
-
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                </div>
-              </div>
-            </div>
-          </div>
-  
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                </div>
-              </div>
-            </div>
-          </div>
-  
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="album pb-5">
+    <div class="container">
+      <div class="table-responsive">
+        <table class="table table-hover" id="filterProducts">
+          <!-- table generated in JavaScript -->
+        </table>
+        <nav>
+          <ul class="pagination justify-content-end">
+            <!-- same je cam atas -->
+          </ul>
+        </nav>
       </div>
     </div>
-    
+  </div>
+  
   
   </main>
 
@@ -402,74 +314,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script>
-    // Array of brand names
-    const brands = [
-        "Samsung", "Apple", "Huawei", "Asus", "Oppo",
-        "HTC", "Xiaomi", "OnePlus", "Vivo", "Honor",
-        "Lenovo", "Realme", "Nokia", "Nothing", "Google",
-        "Redmi", "Poco", "Honor", "Infinix"
-    ];
 
-    // Function to populate the brand select options
-    function populateBrandOptions() {
-        const brandSelect = document.getElementById('brand');
-
-        brands.forEach(brand => {
-            const option = document.createElement('option');
-            option.value = brand;
-            option.text = brand;
-            brandSelect.appendChild(option);
-        });
-    }
-
-    // Call the function to populate options when the page loads
-    window.onload = populateBrandOptions;
-</script>
-  <script>
-    function updatePriceCategory() {
-        const priceRange = document.getElementById('priceRange').value;
-        const priceCategoryField = document.getElementById('priceCategory');
-
-        if (priceRange < 250) {
-            priceCategoryField.value = 'Cheap';
-        } else if (priceRange < 500) {
-            priceCategoryField.value = 'Moderate';
-        } else if (priceRange < 750) {
-            priceCategoryField.value = 'Expensive';
-        } else {
-            priceCategoryField.value = 'Overpriced';
-        }
-    }
-</script>
-
-  <!-- Fetch mobile phone API -->
-  <script>
-    const query = 'iphone 12'; // Example Search Query
-
-// Yahoo Image Search URL
-const searchUrl = `https://images.search.yahoo.com/search/images?p=${query};`
-var cards = document.querySelector("img")
-// Fetching HTML from Yahoo Image Searchs
-fetch(searchUrl)
-    .then(response => response.text())
-    .then(html => {
-        // Parse the HTML to extract image URLs (this part depends on the structure of Yahoo's search results page)
-        // Example: Assuming image URLs are within <img> tags with class "process"
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const imageElements = doc.querySelectorAll('img.process');
-
-        // Extract and log the first image URL
-        if (imageElements.length > 0) {
-            console.log(imageElements[0]) //html
-            const firstImageUrl = imageElements[2].getAttribute('data-src'); // get image link
-            cards.src=firstImageUrl
-            console.log('First image URL:', firstImageUrl);
-        } else {
-            console.error('No images found on the search page.');
-        }
-    })
-    .catch(error => console.error('Error fetching data:', error));
-  </script>
+  <!-- Main Script -->
+  <script src="test.js"></script>
 </body>
