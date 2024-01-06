@@ -392,6 +392,7 @@
     let bc1 = document.querySelector("#bc1")
     bc1.innerHTML = `${result.Main}`
     let img = document.querySelector("#img1")
+    console.log(getImg(result.model))
     getImg(result.model).then(result => {
     img.src = result
 });

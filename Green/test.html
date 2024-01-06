@@ -71,207 +71,207 @@
   </header><!-- End Header -->
   <main>
 
-    <!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs">
-      <div class="container">
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
 
-        <div class="d-flex justify-content-between align-items-center">
-          <h2></h2>
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li>Phone </li>
-          </ol>
-        </div>
-
+      <div class="d-flex justify-content-between align-items-center">
+        <h2></h2>
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li>Phone </li>
+        </ol>
       </div>
-    </section><!-- End Breadcrumbs -->
+
+    </div>
+  </section><!-- End Breadcrumbs -->
 
 
     
     <!-- Filtration Form Section -->
-    <section id="filtrationFormSection">
-      <div class="container">
-        <div class="section-title">
-          <h2 class="text-center mb-4">Filter Products</h2>
-          <form>
-            <div class="mb-3">
-              <label for="brand" class="form-label">Brand:</label>
-              <select class="form-select " id="brand" name="brand">
-                  <!-- JavaScript will populate the options here -->
+  <section id="filtrationFormSection">
+    <div class="container">
+      <div class="section-title">
+        <h2 class="text-center mb-4">Filter Products</h2>
+        <form>
+          <div class="mb-3">
+            <label for="brand" class="form-label">Brand:</label>
+            <select class="form-select " id="brand" name="brand">
+                <!-- JavaScript will populate the options here -->
+            </select>
+          </div>
+          <div class="mb-3">
+              <label for="productType" class="form-label">Phone Type:</label>
+              <select class="form-select" id="productType" name="productType">
+                  <option value="all">All Products</option>
+                  <option value="Gaming">Gaming Phone</option>
+                  <option value="Flagship">Flagship Phone</option>
+                  <option value="Camera">Camera Phone</option>
+                  <option value="Battery Centric">Battery Centric Phone</option>
+                  <option value="Rugged">Rugged Phone</option>
               </select>
-            </div>
-            <div class="mb-3">
-                <label for="productType" class="form-label">Phone Type:</label>
-                <select class="form-select" id="productType" name="productType">
-                    <option value="all">All Products</option>
-                    <option value="Gaming">Gaming Phone</option>
-                    <option value="Flagship">Flagship Phone</option>
-                    <option value="Camera">Camera Phone</option>
-                    <option value="Battery Centric">Battery Centric Phone</option>
-                    <option value="Rugged">Rugged Phone</option>
-                </select>
-            </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#advancedFilterModal">
-                Advanced Filters
-            </button>
-            <button type="button" class="btn btn-primary ml-2" onclick="applyFilter('brand')">Apply Filters</button>
-          </form>
-      </div>
+          </div>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#advancedFilterModal">
+              Advanced Filters
+          </button>
+          <button type="button" class="btn btn-primary ml-2" onclick="applyFilter('brand')">Apply Filters</button>
+        </form>
+    </div>
   </section>
 
     <!-- Advanced Filter Modal -->
-    <div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="advancedFilterModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="advancedFilterModalLabel">Advanced Filters</h5>
-                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <form>
-                    <div class="mb-3">
-                      <label for="priceRange" class="form-label">Price Range:</label>
-                      <div class="form-check">
-                          <input class="form-check-input" type="radio" name="priceRange" id="cheap" value="cheap" onclick="updatePriceCategory('Cheap')">
-                          <label class="form-check-label" for="cheap">
-                              Cheap
-                          </label>
-                      </div>
-                      <div class="form-check">
-                          <input class="form-check-input" type="radio" name="priceRange" id="moderate" value="moderate" onclick="updatePriceCategory('Moderate')">
-                          <label class="form-check-label" for="moderate">
-                              Moderate
-                          </label>
-                      </div>
-                      <div class="form-check">
-                          <input class="form-check-input" type="radio" name="priceRange" id="expensive" value="expensive" onclick="updatePriceCategory('Expensive')">
-                          <label class="form-check-label" for="expensive">
-                              Expensive
-                          </label>
-                      </div>
-                      <div class="form-check">
-                          <input class="form-check-input" type="radio" name="priceRange" id="overpriced" value="overpriced" onclick="updatePriceCategory('Overpriced')">
-                          <label class="form-check-label" for="overpriced">
-                              Overpriced
-                          </label>
-                      </div>
-                  </div>
+  <div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="advancedFilterModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="advancedFilterModalLabel">Advanced Filters</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
                   <div class="mb-3">
-                    <label for="weight" class="form-label">Weight:</label>
+                    <label for="priceRange" class="form-label">Price Range:</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="weight" id="light" value="light">
-                        <label class="form-check-label" for="light">
-                            Light
+                        <input class="form-check-input" type="radio" name="priceRange" id="cheap" value="cheap" onclick="updatePriceCategory('Cheap')">
+                        <label class="form-check-label" for="cheap">
+                            Cheap
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="weight" id="slightlyLight" value="slightlyLight">
-                        <label class="form-check-label" for="slightlyLight">
-                            Slightly Light
+                        <input class="form-check-input" type="radio" name="priceRange" id="moderate" value="moderate" onclick="updatePriceCategory('Moderate')">
+                        <label class="form-check-label" for="moderate">
+                            Moderate
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="weight" id="middle" value="middle">
-                        <label class="form-check-label" for="middle">
-                            Middle
+                        <input class="form-check-input" type="radio" name="priceRange" id="expensive" value="expensive" onclick="updatePriceCategory('Expensive')">
+                        <label class="form-check-label" for="expensive">
+                            Expensive
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="weight" id="slightlyHeavy" value="slightlyHeavy">
-                        <label class="form-check-label" for="slightlyHeavy">
-                            Slightly Heavy
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="weight" id="heavy" value="heavy">
-                        <label class="form-check-label" for="heavy">
-                            Heavy
+                        <input class="form-check-input" type="radio" name="priceRange" id="overpriced" value="overpriced" onclick="updatePriceCategory('Overpriced')">
+                        <label class="form-check-label" for="overpriced">
+                            Overpriced
                         </label>
                     </div>
                 </div>
-
-                  <div class="mb-3">
-                          <label for="processor-c" class="form-label">Processor Chip:</label>
-                          <select class="form-select" id="processor-c" name="processor-c">
-                              <option value="">Any</option>
-                              <option value="Apple-B">Apple Bionic</option>
-                              <option value="Snapdragon">Snapdragon</option>
-                              <option value="Exynos">Exynos</option>
-                              <option value="Kirin">Kirin</option>
-                              <option value="Dimensity">Dimensity</option>
-                              <option value="Helio">Helio</option>
-                          </select>
-                      </div>
-                      <div class="mb-3">
-                          <label for="ram" class="form-label">RAM (GB):</label>
-                          <select class="form-select" id="ram" name="ram">
-                              <option value="">Any</option>
-                              <option value="2">2 GB</option>
-                              <option value="4">4 GB</option>
-                              <option value="8">8 GB</option>
-                              <option value="16">16 GB</option>
-                          </select>
-                      </div>
-                      <div class="mb-3">
-                          <label for="storage" class="form-label">Storage (GB):</label>
-                          <select class="form-select" id="storage" name="storage">
-                              <option value="">Any</option>
-                              <option value="32">32 GB</option>
-                              <option value="64">64 GB</option>
-                              <option value="128">128 GB</option>
-                              <option value="256">256 GB</option>
-                          </select>
-                      </div>
-                      <div class="mb-3">
-                          <label for="camera" class="form-label">Camera (MP):</label>
-                          <select class="form-select" id="camera" name="camera">
-                              <option value="">Any</option>
-                              <option value="8">8 MP</option>
-                              <option value="12">12 MP</option>
-                              <option value="16">16 MP</option>
-                              <option value="20">20 MP</option>
-                          </select>
-                      </div>
-                      <div class="mb-3">
-                          <label for="refreshRate" class="form-label">Refresh Rate (Hz):</label>
-                          <select class="form-select" id="refreshRate" name="refreshRate">
-                              <option value="">Any</option>
-                              <option value="60">60 Hz</option>
-                              <option value="90">90 Hz</option>
-                              <option value="120">120 Hz</option>
-                              <option value="144">144 Hz</option>
-                          </select>
-                      </div>
-                      <div class="mb-3">
-                          <label for="rating" class="form-label">Minimum Rating:</label>
-                          <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" step="0.1">
-                      </div>
-                      <div class="mb-3">
-                          <label for="availability" class="form-label">Availability:</label>
-                          <select class="form-select" id="availability" name="availability">
-                              <option value="all">All Products</option>
-                              <option value="inStock">In Stock</option>
-                              <option value="outOfStock">Out of Stock</option>
-                          </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Apply Advanced Filters</button>
-                  </form>
+                <div class="mb-3">
+                  <label for="weight" class="form-label">Weight:</label>
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="weight" id="light" value="light">
+                      <label class="form-check-label" for="light">
+                          Light
+                      </label>
+                  </div>
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="weight" id="slightlyLight" value="slightlyLight">
+                      <label class="form-check-label" for="slightlyLight">
+                          Slightly Light
+                      </label>
+                  </div>
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="weight" id="middle" value="middle">
+                      <label class="form-check-label" for="middle">
+                          Middle
+                      </label>
+                  </div>
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="weight" id="slightlyHeavy" value="slightlyHeavy">
+                      <label class="form-check-label" for="slightlyHeavy">
+                          Slightly Heavy
+                      </label>
+                  </div>
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="weight" id="heavy" value="heavy">
+                      <label class="form-check-label" for="heavy">
+                          Heavy
+                      </label>
+                  </div>
               </div>
-          </div>
-      </div>
+
+                <div class="mb-3">
+                        <label for="processor-c" class="form-label">Processor Chip:</label>
+                        <select class="form-select" id="processor-c" name="processor-c">
+                            <option value="">Any</option>
+                            <option value="Apple-B">Apple Bionic</option>
+                            <option value="Snapdragon">Snapdragon</option>
+                            <option value="Exynos">Exynos</option>
+                            <option value="Kirin">Kirin</option>
+                            <option value="Dimensity">Dimensity</option>
+                            <option value="Helio">Helio</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ram" class="form-label">RAM (GB):</label>
+                        <select class="form-select" id="ram" name="ram">
+                            <option value="">Any</option>
+                            <option value="2">2 GB</option>
+                            <option value="4">4 GB</option>
+                            <option value="8">8 GB</option>
+                            <option value="16">16 GB</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="storage" class="form-label">Storage (GB):</label>
+                        <select class="form-select" id="storage" name="storage">
+                            <option value="">Any</option>
+                            <option value="32">32 GB</option>
+                            <option value="64">64 GB</option>
+                            <option value="128">128 GB</option>
+                            <option value="256">256 GB</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="camera" class="form-label">Camera (MP):</label>
+                        <select class="form-select" id="camera" name="camera">
+                            <option value="">Any</option>
+                            <option value="8">8 MP</option>
+                            <option value="12">12 MP</option>
+                            <option value="16">16 MP</option>
+                            <option value="20">20 MP</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="refreshRate" class="form-label">Refresh Rate (Hz):</label>
+                        <select class="form-select" id="refreshRate" name="refreshRate">
+                            <option value="">Any</option>
+                            <option value="60">60 Hz</option>
+                            <option value="90">90 Hz</option>
+                            <option value="120">120 Hz</option>
+                            <option value="144">144 Hz</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Minimum Rating:</label>
+                        <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" step="0.1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="availability" class="form-label">Availability:</label>
+                        <select class="form-select" id="availability" name="availability">
+                            <option value="all">All Products</option>
+                            <option value="inStock">In Stock</option>
+                            <option value="outOfStock">Out of Stock</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Apply Advanced Filters</button>
+                </form>
+            </div>
+        </div>
+    </div>
   </div>
 
   <div class="album pb-5">
     <div class="container">
+      <nav>
+        <ul class="pagination justify-content-end">
+          <!-- same je cam atas -->
+        </ul>
+      </nav>
       <div class="table-responsive">
         <table class="table table-hover" id="filterProducts">
           <!-- table generated in JavaScript -->
         </table>
-        <nav>
-          <ul class="pagination justify-content-end">
-            <!-- same je cam atas -->
-          </ul>
-        </nav>
       </div>
     </div>
   </div>
@@ -285,8 +285,8 @@
       <h3>Santai</h3>
       <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
       <div class="social-links">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="https://twitter.com" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="https://facebook.com" class="facebook"><i class="bx bxl-facebook"></i></a>
         <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
         <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
         <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>

@@ -73,43 +73,14 @@ function getPhone(brand, itemsPerPage = 5) {
       table.innerHTML = ""; // clear previous content in table
 
       // Create a table header row
-      let tableHeaders = Object.keys(phoneBrand[0]);
+      const columnsToDisplay = ["model",  "price_usd", "Main", "Front", "Features", "Dimensions"]
+
+      let tableHeaders = Object.keys(phoneBrand[0]); // get table headers
       let headerRow = table.insertRow();
-      tableHeaders.forEach(header => {
-        let th = document.createElement("th");
-        th.textContent = header;
-        headerRow.appendChild(th);
-      });
 
       // Calculate pagination
       let totalPages = Math.ceil(phoneBrand.length / itemsPerPage);
       let currentPage = 1;
-
-      // Function to update the table based on the current page
-      function updateTable() {
-        let startIndex = (currentPage - 1) * itemsPerPage;
-        let endIndex = startIndex + itemsPerPage;
-
-        // Clear previous content from the table
-        table.innerHTML = "";
-
-        // Create table header row
-        headerRow = table.insertRow();
-        tableHeaders.forEach(header => {
-          let th = document.createElement("th");
-          th.textContent = header;
-          headerRow.appendChild(th);
-        });
-
-        // Create table rows with data for the current page
-        phoneBrand.slice(startIndex, endIndex).forEach(phone => {
-          let row = table.insertRow();
-          tableHeaders.forEach(header => {
-            let cell = row.insertCell();
-            cell.textContent = phone[header];
-          });
-        });
-      }
 
       // Pagination controls (next, previous, page buttons)
       let page = document.querySelector('.pagination');
@@ -158,6 +129,93 @@ function getPhone(brand, itemsPerPage = 5) {
         }
       });
 
+      // Function to update the table based on the current page
+      function updateTable() {
+        let startIndex = (currentPage - 1) * itemsPerPage;
+        let endIndex = startIndex + itemsPerPage;
+
+        // Clear previous content from the table
+        table.innerHTML = "";
+
+        // Create table header row
+        headerRow = table.insertRow();
+
+        let thImage = document.createElement("th")
+        thImage.textContent = "Image"
+        headerRow.appendChild(thImage)
+
+        tableHeaders.forEach(header => {
+          if (columnsToDisplay.includes(header)) {
+            let th = document.createElement("th");
+            if (header === "model"){
+              th.textContent = "Model"
+            }
+            // else if (header === "rating"){
+            //   th.textContent = "Rating"
+            // }
+            // else if (header === "num_reviews"){
+            //   th.textContent = "No. of Reviews"
+            // }
+            else if (header === "price_usd"){
+              th.textContent = "Price"
+            }
+            else if (header === "Main"){
+              th.textContent = "Back Camera"
+            }
+            else if (header === "Front"){
+              th.textContent = "Front Camera"
+            }
+            else {
+              th.textContent = header;
+            }
+            headerRow.appendChild(th);
+          }
+        });
+
+        // let thButton = document.createElement("th")
+        // thButton.textContent = "Details"
+        // headerRow.appendChild(thButton)
+
+        // Create table rows with data for the current page
+        phoneBrand.slice(startIndex, endIndex).forEach(phone => {
+          let row = table.insertRow();
+        
+          // change price from usd to myr
+          if (typeof phone['price_usd'] === "number") {
+            phone['price_usd'] = `RM ${(phone['price_usd'] * 4.60).toFixed(2)}`
+          }
+        
+          let imgCell = row.insertCell();
+          let phoneImg = document.createElement("img")
+          phoneImg.style.height = '150px'
+          phoneImg.style.width = '150px'
+          getImg(phone['model'])
+          .then(imgUrl => {
+            // Set the image source
+            phoneImg.src = imgUrl;
+      
+            // Append the image to the cell
+            imgCell.appendChild(phoneImg);
+          });
+          imgCell.appendChild(phoneImg)
+
+          tableHeaders.forEach(column => {
+            if (columnsToDisplay.includes(column)) {
+              let cell = row.insertCell();
+              cell.textContent = phone[column];
+            }
+          });
+        
+          // Create Button for each row
+          // let btnCell = row.insertCell();
+          // let btnDetails = document.createElement("button");
+          // btnDetails.textContent = "Details";
+          // btnDetails.type = "button";
+          // btnDetails.className = "btn btn-primary";
+          // btnCell.appendChild(btnDetails);
+        });
+      }
+
       // Function to create pagination button
       function createPaginationButton(value) {
         let button = document.createElement("li");
@@ -185,28 +243,26 @@ function getPhone(brand, itemsPerPage = 5) {
     .catch(error => console.log('error', error));
 }
 
-// Web Scraping Image
-const query = 'iphone 12'; // Example Search Query
+function getImg(phoneName) {
+  const searchUrl = `https://images.search.yahoo.com/search/images?p=${phoneName}+phone;`;
 
-// Yahoo Image Search URL
-const searchUrl = `https://images.search.yahoo.com/search/images?p=${query}+phone;`
-// Fetching HTML from Yahoo Image Searchs
-fetch(searchUrl)
-  .then(response => response.text())
-  .then(html => {
-    // Parse the HTML to extract image URLs (this part depends on the structure of Yahoo's search results page)
-    // Example: Assuming image URLs are within <img> tags with class "process"
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const imageElements = doc.querySelectorAll('img.process');
+  return fetch(searchUrl)
+    .then(response => response.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const imageElements = doc.querySelectorAll('img.process');
 
-    // Extract and log the first image URL
-    if (imageElements.length > 0) {
-        console.log(imageElements[0]) //html
-        const firstImageUrl = imageElements[2].getAttribute('data-src'); // get image link
-        console.log('First image URL:', firstImageUrl);
-    } else {
+      if (imageElements.length > 0) {
+        const firstImageUrl = imageElements[2].getAttribute('data-src');
+        return firstImageUrl;
+      } else {
         console.error('No images found on the search page.');
-    }
-  })
-  .catch(error => console.error('Error fetching data:', error));
+        return null;  // or any other default value or error handling
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      return null;  // or any other default value or error handling
+    });
+}
