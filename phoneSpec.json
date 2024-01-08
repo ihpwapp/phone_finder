@@ -8236,7 +8236,7 @@
          "4G Band": "LTE band 1(2100), 3(1800), 7(2600), 8(900), 20(800)",
          "5G Band": "5G SA/NSA",
          "CPU": "Octa-core (1 x 3.00 GHz Cortex-X2 + 3 x 2.50 GHz Cortex-A710 + 4 x 1.80 GHz Cortex-A510)",
-         "Chipset": "Qualcomm SM8450 Snapdragon 8 Gen1 (4 nm)",
+         "Chipset": "Qualcomm SM8450 Snapdragon 8 Gen 1 (4 nm)",
          "GPU": "Adreno 730",
          "Technology": "LTPO AMOLED Capacitive Touchscreen, 1B Colors, Multitouch",
          "Size": "6.7 Inches",
