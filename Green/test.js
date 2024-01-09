@@ -716,8 +716,6 @@ function phoneTypeSorting(phoneBrand, phoneType) {
   }
 
   // Calculate all scores
-  let finalScore = 0
-
   if (type === 'all') {
     // do nothing
   }
@@ -867,13 +865,20 @@ function applyFilter(itemsPerPage = 5) {
         heading.textContent = "Showing all results";
       }
 
+      // change price from usd to myr
+      phoneBrand.forEach((phone) => {
+        if (typeof phone['price_usd'] === "number") {
+          phone['price_rm'] = `RM ${(phone['price_usd'] * 4.60).toFixed(2)}`
+        }
+      })  
+
       // Create table
       let table = document.getElementById("filterProducts");
 
       table.innerHTML = ""; // clear previous content in table
 
       // Create a table header row
-      const columnsToDisplay = ["model", "price_usd", "Dimensions", "Weight", "Built-in", "Main", "Features", "Front", "Chipset", "Score"]
+      const columnsToDisplay = ["Dimensions", "Weight", "Built-in", "Main", "Features", "Front", "Chipset", "rating", "num_reviews"]
 
       let tableHeaders = Object.keys(phoneBrand[0]); // get table headers
       let headerRow = table.insertRow();
@@ -940,25 +945,37 @@ function applyFilter(itemsPerPage = 5) {
         // Create table header row
         headerRow = table.insertRow();
 
+        // image header
         let thImage = document.createElement("th")
         thImage.textContent = "Image"
         headerRow.appendChild(thImage)
 
+        // model header
+        let thModel = document.createElement("th")
+        thModel.textContent = "Model"
+        headerRow.appendChild(thModel)
+
+        // score header
+        if (phoneType !== "all"){
+          let thScore = document.createElement("th")
+          thScore.textContent = "Score"
+          headerRow.appendChild(thScore)
+        }
+
+        // price in RM header
+        let thPrice = document.createElement("th")
+        thPrice.textContent = "Price(RM)"
+        headerRow.appendChild(thPrice)
+
         tableHeaders.forEach(header => {
           if (columnsToDisplay.includes(header)) {
             let th = document.createElement("th");
-            if (header === "model"){
             // Change header name
-              th.textContent = "Model"
+            if (header === "rating"){
+              th.textContent = "Rating"
             }
-            // else if (header === "rating"){
-            //   th.textContent = "Rating"
-            // }
-            // else if (header === "num_reviews"){
-            //   th.textContent = "No. of Reviews"
-            // }
-            else if (header === "price_usd"){
-              th.textContent = "Price"
+            else if (header === "num_reviews"){
+              th.textContent = "No. of Reviews"
             }
             else if (header === "Main"){
               th.textContent = "Back Camera"
@@ -981,25 +998,35 @@ function applyFilter(itemsPerPage = 5) {
         phoneBrand.slice(startIndex, endIndex).forEach(phone => {
           let row = table.insertRow();
         
-          // change price from usd to myr
-          if (typeof phone['price_usd'] === "number") {
-            phone['price_usd'] = `RM ${(phone['price_usd'] * 4.60).toFixed(2)}`
-          }
-        
+          // Image column
           let imgCell = row.insertCell();
           let phoneImg = document.createElement("img")
           phoneImg.style.height = '150px'
           phoneImg.style.width = '150px'
           getImg(phone['model'])
           .then(imgUrl => {
-            // Set the image source
             phoneImg.src = imgUrl;
-      
-            // Append the image to the cell
             imgCell.appendChild(phoneImg);
           });
           imgCell.appendChild(phoneImg)
 
+          // Model column
+          let modelCell = row.insertCell();
+          modelCell.textContent = phone['model'];
+
+          // Score column
+          if (phoneType !== "all"){
+            let scoreCell = row.insertCell();
+            let scoreProgress = document.createElement("div")
+
+            scoreCell.textContent = phone['Score'];
+          }
+
+          // Price column
+          let scoreCell = row.insertCell();
+          scoreCell.textContent = phone['price_rm'];
+
+          // The reset of the data
           tableHeaders.forEach(column => {
             if (columnsToDisplay.includes(column)) {
               let cell = row.insertCell();
