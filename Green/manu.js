@@ -39,7 +39,7 @@ async function fetchAndAppendImages() {
     for (const brand of brands) {
         try {
             const result = await getImg(brand);
-            tableData += `<td><a href="https://example.com"><img src="${result}" alt="Image 1"></a></td>`;
+            tableData += `<td><a href="https://${brand}.com" target="__blank"><img src="${result}" alt="Image 1"></a></td>`;
         } catch (error) {
             console.error(`Error fetching image for ${brand}:`, error);
         }
