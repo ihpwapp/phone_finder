@@ -46,8 +46,12 @@
         <ul>
           <li><a class="nav-link scrollto active" href="ask.html">Tailored Tech Recommender</a></li>
           <li><a class="nav-link scrollto" href="test.html">Phone Filter</a></li>
-          <li><a class="nav-link scrollto" href="spec.html">Comparison</a></li>
+          <li><a class="nav-link scrollto" href="spec.html">Phone Spec Comparison</a></li>
           <li><a class="nav-link scrollto" href="manu.html">Manufacturers</a></li>
+          <li><a class="nav-link scrollto" href="#services"></a></li>
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
+            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+          </form>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -125,9 +129,6 @@
       </style>
   </head>
   <body>
-    <div class="section-title">
-      <h2 class="text-center mb-4">Tailor Tech Recommender</h2>
-    </div>
       <div class="quiz-container">
           <div id="question" class="question"></div>
           <div id="options" class="options"></div>
@@ -148,18 +149,33 @@
                   options: ['Gamer/Entertainment Enthusiast', 'Social Butterfly', 'Outdoor Adventurer', 'Photography Enthusiast']
               },
               {
+        question: 'Which feature is a priority for you in a phone?',
+        options: ['High-performance processor', 'Large and vibrant display', 'Water and dust resistance', 'Impressive camera capabilities']
+               },
+               {
+    question: 'When selecting a phone, how crucial is having a high-performance processor to you?',
+    options: ['Essential, I need top-notch performance', 'Important, but not a deal-breaker', 'Moderate importance, I consider other factors too', 'Not a priority']
+},
+{
+    question: 'When choosing a phone, how much emphasis do you place on impressive camera capabilities?',
+    options: [ 'Not a priority',  'Important, but not the sole consideration', 'Moderate importance, I consider other features too', 'Extremely important, photography is a top priority']
+  },
+
+
+              {
                   question: 'In which environment do you use your phone the most?',
                   options: ['Indoors', 'City Life', 'Outdoor Adventures', 'Everywhere, I love taking photos']
               }
+              
           ];
   
           const resultCategories = ['Gaming Phone', 'Lifestyle Phone', 'Rugged Phone', 'Camera Phone'];
           const resultImages = {
-              'Gaming Phone': 'assets/img/afif.jpeg',
-              'Lifestyle Phone': 'assets/img/afif.jpeg',
-              'Rugged Phone': 'assets/img/afif.jpeg',
-              'Camera Phone': 'assets/img/afif.jpeg'
-          };
+    'Gaming Phone': '<i class="bi bi-controller"></i>',
+    'Lifestyle Phone': '<i class="bi bi-person"></i> assets/img/afif.jpeg',
+    'Rugged Phone': '<i class="bi bi-shield-shaded"></i> assets/img/afif.jpeg',
+    'Camera Phone': '<i class="bi bi-camera"></i> assets/img/afif.jpeg'
+};
   
           let currentQuestion = 0;
           let userAnswers = [];
@@ -251,8 +267,8 @@
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
-      <h3>Phone Finder</h3>
-      <p>Thank you for using our Phone Finder tool. We hope you found the perfect phone that meets your requirements. If you have any feedback or suggestions, feel free to reach out to us.</p>
+      <h3>Santai</h3>
+      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
       <div class="social-links">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -263,9 +279,9 @@
       <div class="copyright">
         &copy; Copyright <strong><span>Phone Finder</span></strong>. All Rights Reserved
       </div>
-      <!-- <div class="credits">
+      <div class="credits">
         Designed by <a href="index.html">Michael Jordan (hariz Imzan)</a>
-      </div> -->
+      </div>
     </div>
   </footer><!-- End Footer -->
 
