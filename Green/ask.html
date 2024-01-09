@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons (tab image)-->
-  <link href="assets/img/afif.jpeg" rel="icon">
+  <link href="assets/img/favicon2.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -115,11 +115,24 @@
   
           #resetBtn {
               display: none;
+              margin-top: 20px; 
+          }
+
+          #additionalBtn
+          {
+              display: none;
+              margin-top: 20px; 
+          }
+
+          #resultImageContainer {
+              max-width: 100%;
+              margin-top: 20px;
+              display: none; /* Initially hide the container */
           }
   
           #resultImage {
-              max-width: 100%;
-              margin-top: 20px;
+              width: 100%;
+              height: 100%;
               display: none; /* Initially hide the image */
           }
       </style>
@@ -132,6 +145,7 @@
           <img id="resultImage" alt="Result Image">
           <button class="btn btn-success" id="actionBtn" onclick="nextQuestion()">Next</button>
           <button class="btn btn-success" id="resetBtn" onclick="resetQuiz()">Reset</button>
+          <button class="btn btn-primary" id="additionalBtn" onclick="redirectToAnotherPage()">Lets find your phone</button>
       </div>
   
       <script>
@@ -167,11 +181,11 @@
   
           const resultCategories = ['Gaming Phone', 'Lifestyle Phone', 'Rugged Phone', 'Camera Phone'];
           const resultImages = {
-    'Gaming Phone': '<i class="bi bi-controller"></i>',
-    'Lifestyle Phone': '<i class="bi bi-person"></i> assets/img/afif.jpeg',
-    'Rugged Phone': '<i class="bi bi-shield-shaded"></i> assets/img/afif.jpeg',
-    'Camera Phone': '<i class="bi bi-camera"></i> assets/img/afif.jpeg'
-};
+              'Gaming Phone': 'assets/img/gaming.jpg',
+              'Lifestyle Phone': 'assets/img/lifestyle.jpg',
+              'Rugged Phone': 'assets/img/rugged.jpg',
+              'Camera Phone': 'assets/img/camera.jpg',
+          };
   
           let currentQuestion = 0;
           let userAnswers = [];
@@ -198,6 +212,11 @@
               options.forEach(option => option.style.backgroundColor = ''); // Reset background color
               options[index].style.backgroundColor = '#b3e0ff'; // Highlight selected option
           }
+
+          function redirectToAnotherPage() {
+              // Replace 'another-page.html' with the actual URL of the page you want to redirect to
+              window.location.href = 'test.html';
+          }
   
           function nextQuestion() {
               if (userAnswers[currentQuestion] === undefined) {
@@ -216,6 +235,7 @@
   
           function showResult() {
               const resultElement = document.getElementById('result');
+              const resultImageContainer = document.getElementById('resultImageContainer');
               const resultImageElement = document.getElementById('resultImage');
               const totalQuestions = quizData.length;
               let score = [0, 0, 0, 0];
@@ -236,7 +256,8 @@
   
           function showResetButton() {
               document.getElementById('actionBtn').style.display = 'none';
-              document.getElementById('resetBtn').style.display = 'inline-block';
+              document.getElementById('resetBtn').style.display = 'inline-block';             
+               document.getElementById('additionalBtn').style.display = 'inline-block';
           }
   
           function resetQuiz() {
@@ -263,8 +284,8 @@
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
-      <h3>Phone Finder</h3>
-      <p>Thank you for using our Phone Finder tool. We hope you found the perfect phone that meets your requirements. If you have any feedback or suggestions, feel free to reach out to us.</p>
+      <h3>CDCS259</h3>
+      <p>"Empowering your phone choices with insightful comparisons. © 2024 Phone Comparison."</p>
       <div class="social-links">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
