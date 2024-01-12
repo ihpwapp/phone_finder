@@ -70,6 +70,13 @@ function showTop3(numCard = 3) {
       
       let card = document.getElementById("topProducts")
 
+      // change price from usd to myr
+      phoneBrand.forEach((phone) => {
+        if (typeof phone['price_usd'] === "number") {
+          phone['price_rm'] = `RM ${(phone['price_usd'] * 4.60).toFixed(2)}`
+        }
+      })
+
       card.innerHTML = ""; // clear previous content in card
 
       // create card (display top 3 result)
@@ -82,8 +89,8 @@ function showTop3(numCard = 3) {
       phoneBrand.forEach((phone, index) => {
         if (index < numCard) { // Display only the top 'numCard' (3) results
           let cardItem = document.createElement("div");
-          cardItem.classList.add("card", "mb-3");
-          cardItem.style.maxWidth = "540px";
+          cardItem.classList.add("card", "mb-3", "mx-2");
+          cardItem.style.maxWidth = "400px";
 
           let cardRow = document.createElement("div");
           cardRow.classList.add("row", "g-0");
@@ -110,19 +117,28 @@ function showTop3(numCard = 3) {
           cardTitle.classList.add("card-title");
           cardTitle.innerText = phone['model'];
 
-          // Phone Desc (otw)
-          let cardText = document.createElement("p");
-          cardText.classList.add("card-text");
-          cardText.innerText = phone.description; // Replace 'description' with the actual property name
+          // Phone Desc
+          let cardTextRM = document.createElement("p");
+          cardTextRM.classList.add("card-text");
+          cardTextRM.innerText = "Price : " + phone['price_rm'];
 
-          let cardTimestamp = document.createElement("p");
-          cardTimestamp.classList.add("card-text");
-          let timestamp = new Date(phone.lastUpdated).toLocaleString(); // Replace 'lastUpdated' with the actual property name
-          cardTimestamp.innerHTML = `<small class="text-body-secondary">Last updated: ${timestamp}</small>`;
+          let cardTextSystemScore = document.createElement("p");
+          cardTextSystemScore.classList.add("card-text");
+          cardTextSystemScore.innerText = "System Score : " + phone['Score'];
+
+          let cardTextnum_reviews = document.createElement("p");
+          cardTextnum_reviews.classList.add("card-text");
+          cardTextnum_reviews.innerText = "Number of Reviews : " + phone['num_reviews'];
+
+          let cardTextRating = document.createElement("p");
+          cardTextRating.classList.add("card-text");
+          cardTextRating.innerText = "Number of Reviews : " + phone['rating'];
 
           cardBody.appendChild(cardTitle);
-          cardBody.appendChild(cardText);
-          cardBody.appendChild(cardTimestamp);
+          cardBody.appendChild(cardTextRM);
+          cardBody.appendChild(cardTextSystemScore);
+          cardBody.appendChild(cardTextnum_reviews);
+          cardBody.appendChild(cardTextRating);
 
           cardContentCol.appendChild(cardBody);
 
@@ -840,6 +856,7 @@ function phoneTypeSorting(phoneBrand, phoneType) {
 }
 
 function applyFilter(itemsPerPage = 5) {
+  showTop3()
   const brand = document.getElementById('brand').value
   const productType = document.getElementById('productType').value
 
@@ -1026,7 +1043,7 @@ function applyFilter(itemsPerPage = 5) {
           let scoreCell = row.insertCell();
           scoreCell.textContent = phone['price_rm'];
 
-          // The reset of the data
+          // The rest of the data
           tableHeaders.forEach(column => {
             if (columnsToDisplay.includes(column)) {
               let cell = row.insertCell();
