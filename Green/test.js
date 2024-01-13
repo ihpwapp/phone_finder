@@ -642,7 +642,7 @@ function phoneTypeSorting(phoneBrand, phoneType) {
     }
 
     const flash = {
-      'qua-led' : 4,
+      'quad-led' : 4,
       'dual-led' : 3,
       'dual-tone' : 3,
       'dual tone' : 3,
