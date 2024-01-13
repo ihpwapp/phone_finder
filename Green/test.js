@@ -355,7 +355,7 @@ function phoneTypeSorting(phoneBrand, phoneType) {
 
     const ranges = [
       { min: 0, max: 6, score: 1 },
-      { min: 5.1, max: 12, score: 2 },
+      { min: 6.1, max: 12, score: 2 },
       { min: 12.1, max: 18, score: 3 },
       { min: 18.1, max: 24, score: 4 },
       { min: 24.1, max: Infinity, score: 5 },
