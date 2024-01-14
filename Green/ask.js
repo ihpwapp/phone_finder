@@ -16,8 +16,12 @@ const quizData = [
         options: ['64GB or less', '128GB or more']
     },
     {
-        question: 'Is having a high display rate important for you ',
-        options: [ '8GB',  '16GB or more']
+        question: 'Is having a high display rate important for you?',
+        options: ['Yes', 'No']
+    },
+    {
+        question: 'What is your preferred RAM size for a phone?',
+        options: ['8GB',  '16GB or more']
     },
     {
         question: 'How crucial is battery life for you?',
@@ -91,10 +95,15 @@ function showResult() {
     const totalQuestions = quizData.length;
     let score = [0, 0, 0, 0];
 
+    if (score[userAnswers[0]] == true) {
+        
+    }
+
     for (let i = 0; i < totalQuestions; i++) {
         score[userAnswers[i]]++;
     }
 
+    console.log(score)
     const maxIndex = score.indexOf(Math.max(...score));
     const resultCategory = resultCategories[maxIndex];
 
