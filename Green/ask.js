@@ -1,35 +1,35 @@
 const quizData = [
     {
         question: 'How important is having a high-performance processor for you?',
-        options: ['Not Important', 'Important', 'Very Important']
+        options: ['Not Important', 'Semi-Important', 'Important', 'Very Important']
     },
     {
         question: 'How important are camera capabilities for you?',
-        options: ['Not Important', 'Important', 'Very Important']
+        options: ['Not Important', 'Semi-Important', 'Important', 'Very Important']
     },
     {
-        question: 'Do you mainly use your phone indoors?',
-        options: ['Yes', 'No']
+        question: 'Where do you mainly use your phone?',
+        options: ['Indoors', 'Outdoors', 'Both']
     },
     {
         question: 'What is your preferred storage capacity for a phone?',
-        options: ['64GB or less', '128GB or more']
+        options: ["I don't mind", '64GB or less', '128GB', '256GB and above']
     },
     {
         question: 'Is having a high display rate important for you?',
-        options: ['Yes', 'No']
+        options: ['No', 'Yes']
     },
     {
         question: 'What is your preferred RAM size for a phone?',
-        options: ['8GB',  '16GB or more']
+        options: ["I don't mind", '8GB or less',  '16GB or more']
     },
     {
-        question: 'How crucial is battery life for you?',
-        options: ['Not Important', 'Important', 'Very Important']
+        question: 'How much you use your phone daily?',
+        options: ['I rarely use my phone', 'I use it occasionally', 'I use it a lot']
     },
     {
-        question: 'How important is the weight of the phone for you?',
-        options: ['Not Important', 'Important', 'Very Important']
+        question: 'Do you mind getting heavy phones (heavier = more durable)?',
+        options: ['Light phones', 'Heavy phones']
     }
 ];
 
@@ -117,7 +117,7 @@ function showResult() {
         'storagePreference',
         'displayRefreshRate',
         'ramPreference',
-        'batteryLife',
+        'dailyUses',
         'weight',
     ];
 
@@ -162,53 +162,53 @@ function determinePhoneType(answers) {
         {
             name: 'Gaming Phone',
             conditions: {
-                processorImportance: ['Very Important', 'Important'],
-                cameraImportance: ['Not Important', 'Important'],
-                useIndoors: 'Yes',
-                storagePreference: '128GB or more',
-                displayRefreshRate: 'Yes',
-                ramPreference: '16GB or more',
-                batteryLife: ['Very Important', 'Important'],
-                weight: 'Not Important'
+                processorImportance: { values: ['Very Important', 'Important'], weight: 1.5 },
+                cameraImportance: { values: ['Not Important', 'Semi-Important'], weight: 1.0 },
+                useIndoors: { values: ['Indoors'], weight: 1.3 },
+                storagePreference: { values: ['128GB', '256GB and above'], weight: 1.3 },
+                displayRefreshRate: { values: ['Yes'], weight: 1.2 },
+                ramPreference: { values: ['16GB or more'], weight: 1.4 },
+                dailyUses: { values: ['I use it a lot'], weight: 1.3 },
+                weight: { values: ['Light phones'], weight: 1.0 },
             }
         },
         {
             name: 'Lifestyle Phone',
             conditions: {
-                processorImportance: ['Very Important', 'Important'],
-                cameraImportance: ['Very Important', 'Important'],
-                useIndoors: ['Yes', 'No'],
-                storagePreference: '128GB or more',
-                displayRefreshRate: ['Yes', 'No'],
-                ramPreference: '16GB or more',
-                batteryLife: ['Very Important', 'Important'],
-                weight: ['Important', 'Very Important']
+                processorImportance: { values: ['Not Important', 'Semi-Important'], weight: 1.2 },
+                cameraImportance: { values: ['Not Important', 'Semi-Important'], weight: 1.2 },
+                useIndoors: { values: ['Indoors', 'Outdoors', 'Both'], weight: 1.3 },
+                storagePreference: { values: ["I don't mind"], weight: 1.3 },
+                displayRefreshRate: { values: ['No'], weight: 1.0 },
+                ramPreference: { values: ["I don't mind"], weight: 1.3 },
+                dailyUses: { values: ['I use it occasionally'], weight: 1.7 },
+                weight: { values: ['Light phones'], weight: 1.0 },
             }
         },
         {
             name: 'Rugged Phone',
             conditions: {
-                processorImportance: ['Important', 'Not Important'],
-                cameraImportance: ['Not Important', 'Important'],
-                useIndoors: 'No',
-                storagePreference: ['64GB or more', '128GB or more'],
-                displayRefreshRate: 'No',
-                ramPreference: ['16GB or more', '8GB or more'],
-                batteryLife: ['Very Important', 'Important'],
-                weight: 'Not Important'
+                processorImportance: { values: ['Semi-Important', 'Not Important'], weight: 1.2 },
+                cameraImportance: { values: ['Not Important', 'Semi-Important'], weight: 1.2 },
+                useIndoors: { values: ['Outdoors'], weight: 2.0 },
+                storagePreference: { values: ["I don't mind", '64GB or less'], weight: 1.1 },
+                displayRefreshRate: { values: ['No'], weight: 1.0 },
+                ramPreference: { values: ["I don't mind"], weight: 1.0 },
+                dailyUses: { values: ['I rarely use my phone', 'I use it occasionally'], weight: 1.0 },
+                weight: { values: ['Heavy phones'], weight: 1.5 },
             }
         },
         {
-            name: 'Photography Phone',
+            name: 'Camera Phone',
             conditions: {
-                processorImportance: ['Important', 'Not Important'],
-                cameraImportance: ['Very Important', 'Important'],
-                useIndoors: ['Yes', 'No'],
-                storagePreference: '128GB or more',
-                displayRefreshRate: 'Very Important',
-                ramPreference: '16GB or more',
-                batteryLife: ['Very Important', 'Important'],
-                weight: ['Very Important', 'Important']
+                processorImportance: { values: ['Semi-Important', 'Not Important'], weight: 1.1 },
+                cameraImportance: { values: ['Very Important'], weight: 2.0 },
+                useIndoors: { values: ['Outdoors'], weight: 1.2 },
+                storagePreference: { values: ['256GB and above'], weight: 1.5 },
+                displayRefreshRate: { values: ['No'], weight: 1.0 },
+                ramPreference: { values: ['8GB or less', '16GB or more'], weight: 1.1 },
+                dailyUses: { values: ['I use it occasionally'], weight: 1.1 },
+                weight: { values: ['Light phones'], weight: 1.1 },
             }
         }
     ];
@@ -220,18 +220,16 @@ function determinePhoneType(answers) {
             const userAnswer = answers[key];
             const condition = conditions[key];
 
-            if (Array.isArray(condition)) {
-                // If the condition is an array, check if the user's answer is in the array
-                if (condition.includes(userAnswer)) {
-                    return acc + 1;
+            if (Array.isArray(condition.values)) {
+                if (condition.values.includes(userAnswer)) {
+                    return acc + condition.weight;
                 }
             } else {
-                // If the condition is a single value, check for an exact match
-                if (condition === userAnswer) {
-                    return acc + 1;
+                if (condition.values === userAnswer) {
+                    return acc + condition.weight;
                 }
             }
-
+    
             return acc;
         }, 0);
 
