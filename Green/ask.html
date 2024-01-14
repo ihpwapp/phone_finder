@@ -73,7 +73,6 @@
 
 
       <!-- list of questions-->
-      <section>
         <style>
           body {
               font-family: 'Arial', sans-serif;
@@ -134,9 +133,10 @@
               height: 100%;
               display: none; /* Initially hide the image */
           }
-      </style>
+        </style>
   </head>
   <body>
+    <section>
       <div class="quiz-container">
           <div class="section-title">
             <h2>Tailored Tech Recommender</h2>
@@ -149,144 +149,11 @@
             <div id="result"></div>
             <img id="resultImage" alt="Result Image">
           </div>
-            <button class="btn btn-success mt-2" id="actionBtn" onclick="nextQuestion()">Next</button>
-            <button class="btn btn-success mt-2" id="resetBtn" onclick="resetQuiz()">Reset</button>
-            <button class="btn btn-success mt-2" id="additionalBtn" onclick="redirectToAnotherPage()">Find your phone</button>
-        </div>
-  
-      <script>
-          const quizData = [
-              {
-                  question: 'What is your main purpose of having a phone?',
-                  options: ['Gaming', 'Social Media', 'Outdoor Activities', 'Photography']
-              },
-              {
-                  question: 'How would you describe your lifestyle?',
-                  options: ['Gamer/Entertainment Enthusiast', 'Social Butterfly', 'Outdoor Adventurer', 'Photography Enthusiast']
-              },
-              {
-        question: 'Which feature is a priority for you in a phone?',
-        options: ['High-performance processor', 'Large and vibrant display', 'Water and dust resistance', 'Impressive camera capabilities']
-               },
-               {
-    question: 'When selecting a phone, how crucial is having a high-performance processor to you?',
-    options: ['Essential, I need top-notch performance', 'Important, but not a deal-breaker', 'Moderate importance, I consider other factors too', 'Not a priority']
-},
-{
-    question: 'When choosing a phone, how much emphasis do you place on impressive camera capabilities?',
-    options: [ 'Not a priority',  'Important, but not the sole consideration', 'Moderate importance, I consider other features too', 'Extremely important, photography is a top priority']
-  },
-
-
-              {
-                  question: 'In which environment do you use your phone the most?',
-                  options: ['Indoors', 'City Life', 'Outdoor Adventures', 'Everywhere, I love taking photos']
-              }
-              
-          ];
-  
-          const resultCategories = ['Gaming Phone', 'Lifestyle Phone', 'Rugged Phone', 'Camera Phone'];
-          const resultImages = {
-              'Gaming Phone': 'assets/img/gaming.jpg',
-              'Lifestyle Phone': 'assets/img/lifestyle.jpg',
-              'Rugged Phone': 'assets/img/rugged.jpg',
-              'Camera Phone': 'assets/img/camera.jpg',
-          };
-  
-          let currentQuestion = 0;
-          let userAnswers = [];
-  
-          function loadQuestion() {
-              const questionElement = document.getElementById('question');
-              const optionsElement = document.getElementById('options');
-  
-              questionElement.textContent = quizData[currentQuestion].question;
-  
-              optionsElement.innerHTML = '';
-              quizData[currentQuestion].options.forEach((option, index) => {
-                  const optionElement = document.createElement('div');
-                  optionElement.className = 'option';
-                  optionElement.textContent = option;
-                  optionElement.addEventListener('click', () => selectOption(index));
-                  optionsElement.appendChild(optionElement);
-              });
-          }
-  
-          function selectOption(index) {
-              userAnswers[currentQuestion] = index;
-              const options = document.querySelectorAll('.option');
-              options.forEach(option => option.style.backgroundColor = ''); // Reset background color
-              options[index].style.backgroundColor = '#198754'; // Highlight selected option
-              
-          }
-
-          function redirectToAnotherPage() {
-              // Replace 'another-page.html' with the actual URL of the page you want to redirect to
-              window.location.href = 'test.html';
-          }
-  
-          function nextQuestion() {
-              if (userAnswers[currentQuestion] === undefined) {
-                  alert('Please select an option before moving to the next question.');
-                  return;
-              }
-  
-              currentQuestion++;
-  
-              if (currentQuestion < quizData.length) {
-                  loadQuestion();
-              } else {
-                  showResult();
-              }
-          }
-  
-          function showResult() {
-              const resultElement = document.getElementById('result');
-              const resultImageContainer = document.getElementById('resultImageContainer');
-              const resultImageElement = document.getElementById('resultImage');
-              const totalQuestions = quizData.length;
-              let score = [0, 0, 0, 0];
-  
-              for (let i = 0; i < totalQuestions; i++) {
-                  score[userAnswers[i]]++;
-              }
-  
-              const maxIndex = score.indexOf(Math.max(...score));
-              const resultCategory = resultCategories[maxIndex];
-  
-              resultElement.textContent = `You got: ${resultCategory}!`;
-              resultImageElement.src = resultImages[resultCategory];
-              resultImageElement.alt = `${resultCategory} Image`;
-              resultImageElement.style.display = 'block'; // Show the image
-              showResetButton(); // Call function to show the reset button
-          }
-  
-          function showResetButton() {
-              document.getElementById('actionBtn').style.display = 'none';
-              document.getElementById('resetBtn').style.display = 'inline-block';             
-               document.getElementById('additionalBtn').style.display = 'inline-block';
-          }
-  
-          function resetQuiz() {
-              currentQuestion = 0;
-              userAnswers = [];
-              loadQuestion();
-              document.getElementById('result').textContent = '';
-              document.getElementById('actionBtn').style.display = 'inline-block';
-              document.getElementById('resetBtn').style.display = 'none';
-              document.getElementById('resultImage').src = '';
-              document.getElementById('resultImage').alt = 'Result Image';
-              document.getElementById('resultImage').style.display = 'none'; // Hide the image again
-              document.getElementById('additionalBtn').style.display = 'none';
-
-          }
-  
-          // Initial load
-          loadQuestion();
-      </script>
-          
-          
-        </section>
+          <button class="btn btn-success mt-2" id="actionBtn" onclick="nextQuestion()">Next</button>
+          <button class="btn btn-success mt-2" id="resetBtn" onclick="resetQuiz()">Reset</button>
+          <button class="btn btn-success mt-2" id="additionalBtn" onclick="redirectToAnotherPage()">Find your phone</button>
+      </div>
+    </section>
 
   <!-- end manufacturers -->
 
@@ -320,8 +187,7 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="ask.js"></script>
 
 </body>
 
