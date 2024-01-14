@@ -55,23 +55,19 @@ function loadQuestion() {
         const optionElement = document.createElement('div');
         optionElement.className = 'option';
         optionElement.textContent = option;
-        optionElement.addEventListener('click', () => selectOption(index));
+        optionElement.addEventListener('click', () => selectOption(index, option));
         optionsElement.appendChild(optionElement);
     });
 }
 
-function selectOption(index) {
-    userAnswers[currentQuestion] = index;
+function selectOption(index, option) {
+    userAnswers[currentQuestion] = option;
     const options = document.querySelectorAll('.option');
     options.forEach(option => option.style.backgroundColor = ''); // Reset background color
     options[index].style.backgroundColor = '#198754'; // Highlight selected option
-    
 }
 
-function redirectToAnotherPage() {
-    // Replace 'another-page.html' with the actual URL of the page you want to redirect to
-    window.location.href = 'test.html';
-}
+function redirectToAnotherPage() { window.location.href = 'test.html'; }
 
 function nextQuestion() {
     if (userAnswers[currentQuestion] === undefined) {
@@ -93,21 +89,27 @@ function showResult() {
     const resultImageContainer = document.getElementById('resultImageContainer');
     const resultImageElement = document.getElementById('resultImage');
     const totalQuestions = quizData.length;
-    let score = [0, 0, 0, 0];
+    let score = []
 
-    if (score[userAnswers[0]] == true) {
-        
-    }
+    // Push answers into an array
+    userAnswers.forEach(answer => {
+        score.push(answer)
+    })
 
-    for (let i = 0; i < totalQuestions; i++) {
-        score[userAnswers[i]]++;
-    }
+    const userInput = {
+        highPerformanceProcessor: score[0],
+        cameraImportance: score[1],
+        useIndoors: score[2],
+        storagePreference: score[3],
+        displayRefreshRate: score[4],
+        ramPreference: score[5],
+        batteryLife: score[6],
+        weight: score[7],
+    };
 
-    console.log(score)
-    const maxIndex = score.indexOf(Math.max(...score));
-    const resultCategory = resultCategories[maxIndex];
+    const resultCategory = determinePhoneType(userInput)
 
-    resultElement.textContent = `You got: ${resultCategory}!`;
+    resultElement.textContent = `Phone Type : ${resultCategory}`;
     resultImageElement.src = resultImages[resultCategory];
     resultImageElement.alt = `${resultCategory} Image`;
     resultImageElement.style.display = 'block'; // Show the image
@@ -132,6 +134,68 @@ function resetQuiz() {
     document.getElementById('resultImage').style.display = 'none'; // Hide the image again
     document.getElementById('additionalBtn').style.display = 'none';
 
+}
+
+function determinePhoneType(answers) {
+    const {
+        highPerformanceProcessor,
+        cameraImportance,
+        useIndoors,
+        storagePreference,
+        displayRefreshRate,
+        ramPreference,
+        batteryLife,
+        weight
+    } = answers;
+    console.log(answers)
+
+    if (
+        (highPerformanceProcessor === 'Very Important' || highPerformanceProcessor === 'Important') &&
+        (cameraImportance === 'Not Important' || cameraImportance === 'Important') &&
+        useIndoors === 'Yes' &&
+        storagePreference === '128GB or more' &&
+        displayRefreshRate === 'Yes' &&
+        ramPreference === '16GB or more' &&
+        (batteryLife === 'Very Important' || batteryLife === 'Important') &&
+        weight === 'Not Important'
+    ) {
+        return 'Gaming Phone';
+    } else if (
+        (highPerformanceProcessor === 'Very Important' || highPerformanceProcessor === 'Important') &&
+        (cameraImportance === 'Very Important' || cameraImportance === 'Important') &&
+        (useIndoors === 'Yes' || useIndoors === 'No') &&
+        storagePreference === '128GB or more' &&
+        (displayRefreshRate === 'Yes' || displayRefreshRate === 'No') &&
+        ramPreference === '16GB or more' &&
+        (batteryLife === 'Very Important' || batteryLife === 'Important') &&
+        (weight === 'Important' || weight === 'Very Important')
+    ) {
+        return 'Lifestyle Phone';
+    } else if (
+        (highPerformanceProcessor === 'Important' || highPerformanceProcessor === 'Not Important') &&
+        (cameraImportance === 'Not Important' || cameraImportance === 'Important') &&
+        useIndoors === 'No' &&
+        (storagePreference === '64GB or more' || storagePreference === '128GB or more') &&
+        displayRefreshRate === 'No' &&
+        (ramPreference === '16GB or more' || ramPreference === '8GB or more') &&
+        (batteryLife === 'Very Important' || batteryLife === 'Important') &&
+        weight === 'Not Important'
+    ) {
+        return 'Rugged Phone';
+    } else if (
+        (highPerformanceProcessor === 'Important' || highPerformanceProcessor === 'Not Important') &&
+        (cameraImportance === 'Very Important' || cameraImportance === 'Important') &&
+        (useIndoors === 'Yes' || useIndoors === 'No') &&
+        storagePreference === '128GB or more' &&
+        displayRefreshRate === 'Very Important' &&
+        ramPreference === '16GB or more' &&
+        (batteryLife === 'Very Important' || batteryLife === 'Important') &&
+        (weight === 'Very Important' || weight === 'Important')
+    ) {
+        return 'Photography Phone';
+    } else {
+        return 'Unknown'; // Default case if no type matches
+    }
 }
 
 // Initial load
